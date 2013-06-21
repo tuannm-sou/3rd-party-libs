@@ -20,6 +20,13 @@
 					<altDeploymentRepository>internal.repo::default::file://${project.build.directory}/maven-repository</altDeploymentRepository>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+				<artifactId>maven-install-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
 
 
 			<plugin>
