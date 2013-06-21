@@ -29,17 +29,20 @@
 						<phase>never</phase>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin>-->
 			
 			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<classesDirectory>${project.build.directory}/classes</classesDirectory>
+				</configuration>
 				<executions>
 					<execution>
 						<id>default-jar</id>
-						<phase>never</phase>
+						<phase>package</phase>
 					</execution>
 				</executions>
-			</plugin>-->
+			</plugin>
 
 
 			<plugin>
