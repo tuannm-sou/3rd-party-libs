@@ -57,6 +57,7 @@
 				</configuration>
 				<executions>
 					<execution>
+						<id>deploy-to-github-repository</id>
 						<phase>deploy</phase>
 						<goals>
 							<goal>site</goal>
