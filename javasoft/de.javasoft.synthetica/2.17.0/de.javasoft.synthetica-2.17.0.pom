@@ -10,6 +10,8 @@
 	<properties>
 		<!-- github server corresponds to entry in ${user.home}/.m2/settings.xml -->
 		<github.global.server>github</github.global.server>
+		
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<build>
@@ -43,7 +45,9 @@
 			
 			<!-- maven-jar-plugin -->
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
 				<configuration>
 					<classesDirectory>${project.build.directory}/classes/${project.artifactId}/${project.version}</classesDirectory>
 				</configuration>
