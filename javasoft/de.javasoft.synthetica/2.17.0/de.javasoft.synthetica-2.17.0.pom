@@ -1,0 +1,106 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>javasoft</groupId>
+	<artifactId>de.javasoft.synthetica</artifactId>
+	<version>2.17.0</version>
+	<packaging>jar</packaging>
+
+	<properties>
+		<!-- github server corresponds to entry in ${user.home}/.m2/settings.xml -->
+		<github.global.server>github</github.global.server>
+	</properties>
+
+	<build>
+		<plugins>
+		
+			<!-- maven-clean-plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<excludeDefaultDirectories>true</excludeDefaultDirectories>
+					<filesets>
+						<fileset>
+							<directory>${project.build.directory}/maven-repository</directory>
+							<includes>
+								<include>**/${project.artifactId}/${project.version}/**</include>
+							</includes>
+						</fileset>
+					</filesets>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>clean</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<!-- maven-jar-plugin -->
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<classesDirectory>${project.build.directory}/classes/${project.artifactId}/${project.version}</classesDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>default-jar</id>
+						<phase>package</phase>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- maven-deploy-plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<altDeploymentRepository>internal.repo::default::file://${project.build.directory}/maven-repository</altDeploymentRepository>
+				</configuration>
+			</plugin>
+
+			<!-- [github] site-maven-plugin -->
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>0.8</version>
+				<configuration>
+					<message>Maven artifacts for ${project.artifactId} ${project.version}</message>
+					<noJekyll>true</noJekyll>
+					<outputDirectory>${project.build.directory}/maven-repository</outputDirectory>
+					<branch>refs/heads/maven-repository</branch>
+					<includes>
+						<include>**/*</include>
+					</includes>
+					<repositoryName>3rd-party-libs</repositoryName>
+					<repositoryOwner>tuannm-sou</repositoryOwner>
+				</configuration>
+				<executions>
+					<execution>
+						<id>deploy-to-github-repository</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>site</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+	
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub ${project.artifactId} Repository</name>
+			<url>https://raw.github.com/tuannm-sou/${project.artifactId}/maven-repository</url>
+		</repository>
+	</distributionManagement>
+
+</project>
