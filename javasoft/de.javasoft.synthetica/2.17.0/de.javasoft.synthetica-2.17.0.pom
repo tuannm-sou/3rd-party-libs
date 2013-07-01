@@ -28,7 +28,7 @@
 						<fileset>
 							<directory>${project.build.directory}/maven-repository</directory>
 							<includes>
-								<include>**/${project.artifactId}/${project.version}/**</include>
+								<include>${project.groupId}/${project.artifactId}/${project.version}/**</include>
 							</includes>
 						</fileset>
 					</filesets>
@@ -75,7 +75,7 @@
 				<artifactId>site-maven-plugin</artifactId>
 				<version>0.8</version>
 				<configuration>
-					<message>Maven artifacts for ${project.artifactId} ${project.version}</message>
+					<message>Maven artifacts</message>
 					<noJekyll>true</noJekyll>
 					<outputDirectory>${project.build.directory}/maven-repository</outputDirectory>
 					<branch>refs/heads/maven-repository</branch>
